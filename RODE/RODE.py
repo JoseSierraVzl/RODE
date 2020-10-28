@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+# ----------------------------------------------------------------------------
+# Nombre:       RODE.py
+# Autores:      Jose Alejandro Sierra Mendez (Fundador de CODELOID)
+# Creado:       28 de Octubre del 2020
+# Modificado:   21 de Octubre del 2020
+# Copyright:    (c) 2020 CODELOID
+# License:      MIT License
+# ----------------------------------------------------------------------------
 import sys
 import time
 from os import *
