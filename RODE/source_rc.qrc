@@ -1,0 +1,31 @@
+<RCC>
+  <qresource prefix="Cancelar">
+    <file>img/Cancelar_blanco.png</file>
+    <file>img/Cancelar_negro.png</file>
+    <file>img/Cancelar_rojo.png</file>
+  </qresource>
+  <qresource prefix="Dolar">
+    <file>img/dolar.png</file>
+  </qresource>
+  <qresource prefix="Icono">
+    <file>img/calendar.png</file>
+  </qresource>
+  <qresource prefix="Check">
+    <file>img/Check_azul.png</file>
+    <file>img/Check_blanco.png</file>
+    <file>img/Check_negro.png</file>
+  </qresource>
+  <qresource prefix="Buscar">
+    <file>img/Lupa_blanca.png</file>
+    <file>img/Lupa_negra.png</file>
+  </qresource>
+  <qresource prefix="Eliminar">
+    <file>img/Papelera_negro.png</file>
+  </qresource>
+  <qresource prefix="Recargar">
+    <file>img/Recargar.png</file>
+  </qresource>
+  <qresource prefix="Agregar">
+    <file>img/Lapiz_negro.png</file>
+  </qresource>
+</RCC>
