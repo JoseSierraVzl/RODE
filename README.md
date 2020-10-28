@@ -1,2 +1,2 @@
 # RODE
-RODE(Programa de escritorio para manter el registro y control de deudores)
+RODE(Programa de escritorio para mantener el registro y control de deudores)
