@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-# ----------------------------------------------------------------------------
-# Nombre:       RODE.py
-# Autores:      Jose Alejandro Sierra Mendez (Fundador de CODELOID)
-# Creado:       28 de Octubre del 2020
-# Modificado:   21 de Octubre del 2020
-# Copyright:    (c) 2020 CODELOID
-# License:      MIT License
-# ----------------------------------------------------------------------------
 import sys
 import time
 from os import *
@@ -34,7 +25,9 @@ class main(QDialog):
 		"background-color: #fff}")
 		self.initUi()
 		self.mostrar_datos()
-		self.valor_dolar()
+		self._timer = QTimer()
+		self._timer.singleShot(5000, self.valor_dolar)
+		#self.valor_dolar
 
 	def initUi(self):
 		self.shadow  = QGraphicsDropShadowEffect()        
@@ -300,6 +293,8 @@ class main(QDialog):
 		self.button_guardar.clicked.connect(self.insert_datos_db)
 
 		self.button_actualizar.clicked.connect(self.mostrar_datos)
+		self.button_actualizar.clicked.connect(self.valor_dolar)
+		self.button_actualizar.clicked.connect(self.Precio_productos)		
 
 		self.button_cancelar_vz.clicked.connect(self.funtion_cancelar_vz)
 		self.button_guardar_vz.clicked.connect(self.Update_datos)
@@ -342,7 +337,6 @@ class main(QDialog):
 			self.label_copias.setText('Precio de las copias: '+str(precio_copias)+"Bs")
 			self.label_impresiones.setText('Precio de las impresiones: '+str(precio_impresiones)+"Bs")
 			self.label_internet.setText('Precio del uso de internet: '+str(precio_internet)+"Bs")
-
 
 
 
