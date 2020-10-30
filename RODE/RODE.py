@@ -71,10 +71,20 @@ class main(QDialog):
 		self.frame_menu.setStyleSheet(style_frame_menu)
 
 		self.button_actualizar = QPushButton(self.frame_menu)
-		self.button_actualizar.setGeometry(QRect(34,11,24,24))
+		self.button_actualizar.setGeometry(QRect(20,11,24,24))
 		self.button_actualizar.setStyleSheet(style_actualizar)
+		self.button_actualizar.setToolTip("Click para actualizar tabla")
 		self.button_actualizar.setIcon(QIcon(":/Recargar/img/Recargar.png"))
 		self.button_actualizar.setIconSize(QSize(26,26))
+
+		self.button_actualizar_dolar = QPushButton(self.frame_menu)
+		self.button_actualizar_dolar.setGeometry(QRect(50,10,24,24))
+		self.button_actualizar_dolar.setStyleSheet(style_actualizar)
+		self.button_actualizar_dolar.setToolTip("Actualizar tasa de intercambio del dolar")
+		self.button_actualizar_dolar.setIcon(QIcon(":/Dolar_recarga/img/Recargar_dolar.png"))
+		self.button_actualizar_dolar.setIconSize(QSize(20,20))
+
+
 
 		self.button_agregar = QPushButton(self.frame_menu)
 		self.button_agregar.setGeometry(QRect(5,160,81,25))
@@ -294,8 +304,9 @@ class main(QDialog):
 		self.button_guardar.clicked.connect(self.insert_datos_db)
 
 		self.button_actualizar.clicked.connect(self.mostrar_datos)
-		self.button_actualizar.clicked.connect(self.valor_dolar)
-		self.button_actualizar.clicked.connect(self.Precio_productos)		
+
+		self.button_actualizar_dolar.clicked.connect(self.valor_dolar)
+		self.button_actualizar_dolar.clicked.connect(self.Precio_productos)		
 
 		self.button_cancelar_vz.clicked.connect(self.funtion_cancelar_vz)
 		self.button_guardar_vz.clicked.connect(self.Update_datos)
