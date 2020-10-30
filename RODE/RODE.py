@@ -2,7 +2,8 @@ import sys
 import time
 from os import *
 import sqlite3
-import requests 
+import requests
+from requests import exceptions
 import json
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -304,21 +305,26 @@ class main(QDialog):
 							QMessageBox.Ok)
 
 	def valor_dolar(self):
+		try:
+			resp = requests.get('https://s3.amazonaws.com/dolartoday/data.json',timeout = 3)
+			print("Connected")
+			a = json.loads(resp.text)
+			usd = a['USD']
+			dolar = usd['transferencia']
+			self.label_ultimo_registro.setText("Valor del dolar actual: 1$ = "+str(dolar)+"Bs")
+			self.Precio_productos(dolar)
+			print(dolar)
+		except exceptions.ConnectionError:
+			QMessageBox.critical(self, "Error de conexión", "Erro al conectar con DolarToday vuelva a cargar o \nComprueba tu conexión a internet.",
+											 QMessageBox.Ok)
 
-		resp = requests.get('https://s3.amazonaws.com/dolartoday/data.json')
-		if resp:
-			if resp.status_code == 200:
-				a = json.loads(resp.text)
-				usd = a['USD']
-				dolar = usd['transferencia']
-				self.label_ultimo_registro.setText("Valor del dolar actual: 1$ = "+str(dolar)+"Bs")
-				self.Precio_productos(dolar)
-				print(dolar)
+			self.label_copias.setText('Precio de las copias: No conecto ')
+			self.label_impresiones.setText('Precio de las impresiones: No conecto ')
+			self.label_internet.setText('Precio del uso de internet: No conecto')
+			self.label_ultimo_registro.setText("Valor del dolar actual: 1$ = No conecto")
+			print("Not connected")
 
-			else:
-				print("No se pudo conectar")
-		else:
-			None
+
 	def Precio_productos(self,dolar):
 		if dolar:
 			#print("AAAA",dolar)
