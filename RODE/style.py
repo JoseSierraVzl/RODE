@@ -7,9 +7,9 @@ style_frame_title = ("\n"
 			##################
 
 			#Style label title
-style_label_title = ("\n"
-		"QLabel\n"
-		"{font: 25pt 'Arial Rounded MT Bold';}")
+# style_label_title = ("\n"
+# 		"QLabel\n"
+# 		"{font: 25pt 'Arial Rounded MT Bold';}")
 			##################
 
 			#Style frame menu

@@ -8,7 +8,7 @@ import json
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 
 from source_rc import *
 from style import *
@@ -18,7 +18,7 @@ class main(QDialog):
 	def __init__(self, parent = None):
 		super(main, self).__init__()
 		#self.setObjectName("Dialog")
-		self.setWindowTitle("Regristo de deudores")
+		self.setWindowTitle("Registro de deudores")
 		self.setWindowFlags(Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint)
 		self.setWindowIcon(QIcon(":/Icono/img/calendar.png"))
 		self.setFixedSize(654, 490)  
@@ -42,8 +42,9 @@ class main(QDialog):
 		self.label_title = QLabel(self.frame_title)
 		self.label_title.setGeometry(QRect(0,0,491,71))
 		self.label_title.setAlignment(Qt.AlignCenter)
-		self.label_title.setText("Registro de deudores")
-		self.label_title.setStyleSheet(style_label_title)
+		self.label_title.setText("REGISTRO DE DEUDORES")
+		self.label_title.setFont(QtGui.QFont("Roboto", 20))
+		# self.label_title.setStyleSheet(style_label_title)
 		##########
 
 		#Label de precios
@@ -81,7 +82,7 @@ class main(QDialog):
 		self.button_actualizar_dolar.setGeometry(QRect(50,10,24,24))
 		self.button_actualizar_dolar.setStyleSheet(style_actualizar)
 		self.button_actualizar_dolar.setToolTip("Actualizar tasa de intercambio del dolar")
-		self.button_actualizar_dolar.setIcon(QIcon(":/Dolar_recarga/img/Recargar_dolar.png"))
+		self.button_actualizar_dolar.setIcon(QIcon("img/Recargar_dolar.png"))
 		self.button_actualizar_dolar.setIconSize(QSize(20,20))
 
 
@@ -312,7 +313,7 @@ class main(QDialog):
 		self.button_guardar_vz.clicked.connect(self.Update_datos)
 		##############
 	def aun_no(self):
-		QMessageBox.critical(self, "Upps!", "Aun no se ha agregado ninguna funcionalidad a este boton!.",
+		QMessageBox.critical(self, "Upps!", "Aún no se ha agregado ninguna funcionalidad a este boton!.",
 							QMessageBox.Ok)
 
 	def valor_dolar(self):
@@ -326,13 +327,13 @@ class main(QDialog):
 			self.Precio_productos(dolar)
 			print(dolar)
 		except exceptions.ConnectionError:
-			QMessageBox.critical(self, "Error de conexión", "Erro al conectar con DolarToday vuelva a cargar o \nComprueba tu conexión a internet.",
+			QMessageBox.critical(self, "Error de conexión", "Error al conectar con DolarToday vuelva a cargar o \nComprueba tu conexión a internet.",
 											 QMessageBox.Ok)
 
-			self.label_copias.setText('Precio de las copias: No conecto ')
-			self.label_impresiones.setText('Precio de las impresiones: No conecto ')
-			self.label_internet.setText('Precio del uso de internet: No conecto')
-			self.label_ultimo_registro.setText("Valor del dolar actual: 1$ = No conecto")
+			self.label_copias.setText('Copias: No conectó ')
+			self.label_impresiones.setText('Impresiones: No conectó ')
+			self.label_internet.setText('Uso de internet: No conectó')
+			self.label_ultimo_registro.setText("Valor del dolar actual: 1$ = No conectó")
 			print("Not connected")
 
 
@@ -351,9 +352,9 @@ class main(QDialog):
 			#print("El r",precio_copias)
 			#r_2 = precio_impresiones
 			#r_3 = precio_internet
-			self.label_copias.setText('Precio de las copias: '+str(precio_copias)+"Bs")
-			self.label_impresiones.setText('Precio de las impresiones: '+str(precio_impresiones)+"Bs")
-			self.label_internet.setText('Precio del uso de internet: '+str(precio_internet)+"Bs")
+			self.label_copias.setText('Copias: '+str(precio_copias)+"Bs")
+			self.label_impresiones.setText('Impresiones: '+str(precio_impresiones)+"Bs")
+			self.label_internet.setText('Uso de internet: '+str(precio_internet)+"Bs")
 
 
 
@@ -831,6 +832,9 @@ class main(QDialog):
 		self.animacionMostar.setEndValue(QRect(340, 250, 0, 0))
 		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
 
+
+	def calculator(self):
+		pass
 
 
 if __name__ == '__main__':
