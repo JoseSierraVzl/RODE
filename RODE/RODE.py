@@ -122,20 +122,10 @@ class main(QDialog):
 		self.button_buscar.setText("")
 		self.button_buscar.setIconSize(QSize(16,16))
 
-		#self.menu_buscar = QMenu()
 		self.button_buscar_por = QPushButton(self.frame_menu_dos)
 		self.button_buscar_por.setGeometry(QRect(200,7,81,25))
 		self.button_buscar_por.setStyleSheet(style_eliminar_agregar)
-		self.button_buscar_por.setText("Buscar por: ")
-		#self.menu_buscar.setStyleSheet(Style_button_menu)
-		#self.buscar_por = self.menu_buscar.addAction("Buscar por fecha", self.mostrar_agregar)
-		#self.button_buscar_por.setMenu(self.menu_buscar)
-		self.button_buscar_por.clicked.connect(self.aun_no)
-
-		#resp = requests.get('https://s3.amazonaws.com/dolartoday/data.json')
-		#a = json.loads(resp.text)
-		#usd = a['USD']
-		#dolar = usd['transferencia']
+		self.button_buscar_por.setText("Calculadora")
 
 
 		self.label_ultimo_registro = QLabel(self.frame_menu_dos)
@@ -181,7 +171,6 @@ class main(QDialog):
 		self.frame_registro_nuevo = QFrame(self)
 		self.frame_registro_nuevo.setGeometry(QRect(-1000,160,151,312))
 		self.frame_registro_nuevo.setStyleSheet(style_menu_dos)
-
 		self.frame_registro_nuevo.setGraphicsEffect(self.shadow)
 
 		self.label_nombre_apellido = QLabel(self.frame_registro_nuevo)
@@ -222,7 +211,28 @@ class main(QDialog):
 		self.line_edit_monto.setPlaceholderText("Ingresa aquí")
 		self.line_edit_monto.setToolTip("Ingresa el monto de\nla deuda")
 
+		self.frame_calculator = QFrame(self)
+		self.frame_calculator.setGeometry(QRect(290,-1500,150,312))
+		self.frame_calculator.setStyleSheet(style_menu_calculator)
+		self.shadow2  = QGraphicsDropShadowEffect()        
+		self.shadow2.setBlurRadius(22)
+		self.frame_calculator.setGraphicsEffect(self.shadow2)
+
+		self.display_calculator = QtWidgets.QLineEdit(self.frame_calculator)
+		self.display_calculator.setGeometry(QRect(5,10,140,50))
+		self.display_calculator.setStyleSheet(style_display_calculator)
+		self.display_calculator.setReadOnly(True)
+		self.display_calculator.setMaxLength(20)
+		self.display_calculator.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+
+		self.button_back_calculator = QPushButton(self.frame_calculator)
+		self.button_back_calculator.setGeometry(QRect(15,250,25,25))
+		self.button_back_calculator.setIcon(QIcon("img/flecha_abajo.svg"))
+		self.button_back_calculator.setIconSize(QSize(20,20))
+		self.button_back_calculator.setText("")
+
 		#self.line_edit_monto.setValidator(QRegExpValidator(QRegExp("[0-9]+[,-.]"),self.line_edit_monto))
+
 
 		self.button_cancelar = QPushButton(self.frame_registro_nuevo)
 		self.button_cancelar.setGeometry(QRect(50,280,22,22))
@@ -306,6 +316,7 @@ class main(QDialog):
 
 		self.button_actualizar.clicked.connect(self.mostrar_datos)
 
+		self.button_buscar_por.clicked.connect(self.visualizar_calculadora)
 		self.button_actualizar_dolar.clicked.connect(self.valor_dolar)
 		self.button_actualizar_dolar.clicked.connect(self.Precio_productos)		
 
@@ -703,6 +714,15 @@ class main(QDialog):
 
 
 
+	def visualizar_calculadora(self):
+		self.animacionMostar = QPropertyAnimation(self.frame_calculator,b"geometry")
+		self.animacionMostar.finished.connect(lambda: (self.frame_calculator))
+
+		self.animacionMostar.setDuration(900)
+		self.animacionMostar.setStartValue(QRect(290,1500,150,312))
+		self.animacionMostar.setEndValue(QRect(290,150,150,312))
+		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
+
 
 	def visualizar_dudor(self):
 
@@ -768,12 +788,6 @@ class main(QDialog):
 		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
 
 
-
-
-
-
-
-
 	def funtion_cancelar_vz(self):
 		msg = QMessageBox()
 		msg.setText("¿Estás seguro de que desea cancelar?")
@@ -788,7 +802,6 @@ class main(QDialog):
 		button_si.setStyleSheet("QPushButton:hover{background:rgb(0, 170, 255);}\n"
 		"QPushButton{background:#343a40;\n"
 		"}")
-
 
 		button_no = msg.button(QMessageBox.No)
 		button_no.setIcon(QIcon(":/Cancelar/img/Cancelar_rojo.png"))
@@ -835,7 +848,6 @@ class main(QDialog):
 
 	def calculator(self):
 		pass
-
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)

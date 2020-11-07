@@ -44,7 +44,16 @@ style_eliminar_agregar = ("\n"
 style_menu_dos = ("\n"
 		"QFrame\n"
 		"{background-color:#59a5d8;}")
+	
+			#Style Frame de la calculadora
+style_menu_calculator = ("QFrame\n"
+		"{background-color: rgba(36,112,190,0.9);\n"
+		"border-radius:10px;}")
 			#####################
+
+style_display_calculator = ("QLineEdit\n"
+		"{background-color: rgba(230,230,230,1);\n"
+		"border-radius:5px;}")
 
 			#Style line edit
 style_line_edit = ("\n"
