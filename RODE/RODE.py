@@ -26,8 +26,8 @@ class main(QDialog):
 		"background-color: #fff}")
 		self.initUi()
 		self.mostrar_datos()
-		self._timer = QTimer()
-		self._timer.singleShot(5000, self.valor_dolar)
+		# self._timer = QTimer()
+		# self._timer.singleShot(5000, self.valor_dolar)
 		#self.valor_dolar
 
 	def initUi(self):
@@ -211,6 +211,8 @@ class main(QDialog):
 		self.line_edit_monto.setPlaceholderText("Ingresa aquí")
 		self.line_edit_monto.setToolTip("Ingresa el monto de\nla deuda")
 
+
+		# Inicio de la calculadora -------------------------
 		self.frame_calculator = QFrame(self)
 		self.frame_calculator.setGeometry(QRect(290,-1500,150,312))
 		self.frame_calculator.setStyleSheet(style_menu_calculator)
@@ -224,12 +226,67 @@ class main(QDialog):
 		self.display_calculator.setReadOnly(True)
 		self.display_calculator.setMaxLength(20)
 		self.display_calculator.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+		self.shadow6  = QGraphicsDropShadowEffect()        
+		self.shadow6.setBlurRadius(22)
+		self.display_calculator.setGraphicsEffect(self.shadow6)
 
 		self.button_back_calculator = QPushButton(self.frame_calculator)
-		self.button_back_calculator.setGeometry(QRect(15,250,25,25))
+		self.button_back_calculator.setGeometry(QRect(25,250,25,25))
+		self.button_back_calculator.setStyleSheet(style_button_guardar)
 		self.button_back_calculator.setIcon(QIcon("img/flecha_abajo.svg"))
-		self.button_back_calculator.setIconSize(QSize(20,20))
 		self.button_back_calculator.setText("")
+		self.shadow3 = QGraphicsDropShadowEffect()
+		# self.shadow3.setColor(QColor(255, 13, 25, 160))
+		self.shadow3.setBlurRadius(36)
+		self.button_back_calculator.setGraphicsEffect(self.shadow3)
+
+		self.button_equal = QPushButton(self.frame_calculator)
+		self.button_equal.setGeometry(QRect(100,110,25,25))
+		self.button_equal.setStyleSheet(style_button_equal)
+		self.button_equal.setText("=")
+		self.button_equal.setFont(QtGui.QFont("Roboto", 15))
+		self.shadow4 = QGraphicsDropShadowEffect()
+		self.shadow4.setBlurRadius(36)
+		self.button_equal.setGraphicsEffect(self.shadow4)
+
+		self.button_equal2 = QPushButton(self.frame_calculator)
+		self.button_equal2.setGeometry(QRect(100,190,25,25))
+		self.button_equal2.setStyleSheet(style_button_equal)
+		self.button_equal2.setText("=")
+		self.button_equal2.setFont(QtGui.QFont("Roboto", 15))
+		self.shadow5 = QGraphicsDropShadowEffect()
+		self.shadow5.setBlurRadius(36)
+		self.button_equal2.setGraphicsEffect(self.shadow5)
+
+		self.label_dolares = QLabel(self.frame_calculator)
+		self.label_dolares.setGeometry(QRect(20,70,100,40))
+		self.label_dolares.setStyleSheet(style_labels_calculator)
+		self.label_dolares.setText("No. de $")
+		self.label_dolares.setFont(QtGui.QFont("Roboto", 12))
+
+		self.label_bolivares = QLabel(self.frame_calculator)
+		self.label_bolivares.setGeometry(QRect(20,150,100,40))
+		self.label_bolivares.setStyleSheet(style_labels_calculator)
+		self.label_bolivares.setText("No. de Bs")
+		self.label_bolivares.setFont(QtGui.QFont("Roboto", 12))
+
+
+		self.line_dolares = QLineEdit(self.frame_calculator)
+		self.line_dolares.setGeometry(QRect(20,100,70,40))
+		self.line_dolares.setStyleSheet(style_display_calculator)
+		self.shadow7 = QGraphicsDropShadowEffect()
+		self.shadow7.setBlurRadius(22)
+		self.line_dolares.setGraphicsEffect(self.shadow7)
+
+
+		self.line_bolivares = QLineEdit(self.frame_calculator)
+		self.line_bolivares.setGeometry(QRect(20,180,70,40))
+		self.line_bolivares.setStyleSheet(style_display_calculator)
+		self.shadow8 = QGraphicsDropShadowEffect()
+		self.shadow8.setBlurRadius(22)
+		self.line_bolivares.setGraphicsEffect(self.shadow8)
+
+		# Fin de la calculadora --------------------------------
 
 		#self.line_edit_monto.setValidator(QRegExpValidator(QRegExp("[0-9]+[,-.]"),self.line_edit_monto))
 

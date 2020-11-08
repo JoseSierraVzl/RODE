@@ -47,13 +47,27 @@ style_menu_dos = ("\n"
 	
 			#Style Frame de la calculadora
 style_menu_calculator = ("QFrame\n"
-		"{background-color: rgba(36,112,190,0.9);\n"
+		"{background-color: rgba(89,165,216,0.9);\n"
 		"border-radius:10px;}")
 			#####################
 
 style_display_calculator = ("QLineEdit\n"
 		"{background-color: rgba(230,230,230,1);\n"
 		"border-radius:5px;}")
+
+style_labels_calculator = ("\n"
+		"QLineEdit\n"
+		"{border:0;\n"
+		"border-radius:10px;}")
+
+style_button_equal = ("QPushButton{\n"
+		"border-radius:5px;\n"
+		"color: black;"
+		"background-color: rgba(255,255,255,1);}\n"
+
+		"QPushButton:hover{\n"
+		"color: white;"
+		"background-color:rgba(255,255,255,.3);}")
 
 			#Style line edit
 style_line_edit = ("\n"
