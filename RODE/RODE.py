@@ -30,6 +30,8 @@ class main(QDialog):
 		# self._timer.singleShot(5000, self.valor_dolar)
 		#self.valor_dolar
 
+
+
 	def initUi(self):
 		self.shadow  = QGraphicsDropShadowEffect()        
 		self.shadow.setBlurRadius(15)
@@ -261,19 +263,20 @@ class main(QDialog):
 		self.label_dolares = QLabel(self.frame_calculator)
 		self.label_dolares.setGeometry(QRect(20,70,100,40))
 		self.label_dolares.setStyleSheet(style_labels_calculator)
-		self.label_dolares.setText("No. de $")
+		self.label_dolares.setText("$ a Bs")
 		self.label_dolares.setFont(QtGui.QFont("Roboto", 12))
 
 		self.label_bolivares = QLabel(self.frame_calculator)
 		self.label_bolivares.setGeometry(QRect(20,150,100,40))
 		self.label_bolivares.setStyleSheet(style_labels_calculator)
-		self.label_bolivares.setText("No. de Bs")
+		self.label_bolivares.setText("Bs a $")
 		self.label_bolivares.setFont(QtGui.QFont("Roboto", 12))
 
 
 		self.line_dolares = QLineEdit(self.frame_calculator)
 		self.line_dolares.setGeometry(QRect(20,100,70,40))
 		self.line_dolares.setStyleSheet(style_display_calculator)
+		self.line_dolares.setValidator(QtGui.QDoubleValidator())
 		self.shadow7 = QGraphicsDropShadowEffect()
 		self.shadow7.setBlurRadius(22)
 		self.line_dolares.setGraphicsEffect(self.shadow7)
@@ -282,6 +285,7 @@ class main(QDialog):
 		self.line_bolivares = QLineEdit(self.frame_calculator)
 		self.line_bolivares.setGeometry(QRect(20,180,70,40))
 		self.line_bolivares.setStyleSheet(style_display_calculator)
+		self.line_bolivares.setValidator(QtGui.QDoubleValidator())
 		self.shadow8 = QGraphicsDropShadowEffect()
 		self.shadow8.setBlurRadius(22)
 		self.line_bolivares.setGraphicsEffect(self.shadow8)
@@ -379,10 +383,17 @@ class main(QDialog):
 
 		self.button_cancelar_vz.clicked.connect(self.funtion_cancelar_vz)
 		self.button_guardar_vz.clicked.connect(self.Update_datos)
+
+		# Calculadora
+		self.button_back_calculator.clicked.connect(self.ocultar_calculadora)
+		self.button_equal.clicked.connect(self.evaluacion)
+		self.button_equal2.clicked.connect(self.evaluacion2)
+
 		##############
 	def aun_no(self):
 		QMessageBox.critical(self, "Upps!", "Aún no se ha agregado ninguna funcionalidad a este boton!.",
 							QMessageBox.Ok)
+
 
 	def valor_dolar(self):
 		try:
@@ -393,7 +404,6 @@ class main(QDialog):
 			dolar = usd['transferencia']
 			self.label_ultimo_registro.setText("Valor del dolar actual: 1$ = "+str(dolar)+"Bs")
 			self.Precio_productos(dolar)
-			print(dolar)
 		except exceptions.ConnectionError:
 			QMessageBox.critical(self, "Error de conexión", "Error al conectar con DolarToday vuelva a cargar o \nComprueba tu conexión a internet.",
 											 QMessageBox.Ok)
@@ -683,10 +693,6 @@ class main(QDialog):
 
 
 
-
-
-
-
 	def mostrar_datos(self):
 
 		if QFile.exists("Base de datos/DB_DEUDORES.db"):
@@ -733,7 +739,6 @@ class main(QDialog):
 
 
 
-
 	def Item_click(self,celda):
 		celda = self.Tabla_registro.selectedItems()
 
@@ -769,6 +774,16 @@ class main(QDialog):
 			print("Error")
 
 
+	def dolar_value(self):
+		# try:
+		resp = requests.get('https://s3.amazonaws.com/dolartoday/data.json',timeout = 3)
+		a = json.loads(resp.text)
+		usd = a['USD']
+		dolar = usd['transferencia']
+		# except exceptions.ConnectionError:
+		# 	QMessageBox.critical(self, "Error de conexión", "Error al conectar con DolarToday vuelva a cargar o \nComprueba tu conexión a internet.",
+		# 									 QMessageBox.Ok)
+		return dolar
 
 
 	def visualizar_calculadora(self):
@@ -779,6 +794,42 @@ class main(QDialog):
 		self.animacionMostar.setStartValue(QRect(290,1500,150,312))
 		self.animacionMostar.setEndValue(QRect(290,150,150,312))
 		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
+
+	def ocultar_calculadora(self):
+		self.animacionMostar = QPropertyAnimation(self.frame_calculator,b"geometry")
+		self.animacionMostar.finished.connect(lambda: (self.frame_calculator))
+
+		self.animacionMostar.setDuration(200)
+		self.animacionMostar.setStartValue(QRect(290, 140, 151, 312))
+		self.animacionMostar.setEndValue(QRect(340, 250, 0, 0))
+		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
+		self.line_dolares.clear()
+		self.line_bolivares.clear()
+		self.display_calculator.clear()
+
+	def evaluacion(self):
+		try:
+			dolares = int(self.line_dolares.text())
+			dolar = int(self.dolar_value())
+			resultado = dolares * dolar
+			resultado = str(resultado)
+
+			self.display_calculator.setText(resultado + " Bs")
+		except ValueError:
+			self.display_calculator.setText("SINTAXIS ERROR")
+
+
+	def evaluacion2(self):
+		try:
+			bolivares = int(self.line_bolivares.text())
+			dolar = int(self.dolar_value())
+			resultado = bolivares / dolar
+			resultado = str(resultado)
+
+			self.display_calculator.setText(resultado + " $")
+
+		except ValueError:
+			self.display_calculator.setText("SINTAXIS ERROR")
 
 
 	def visualizar_dudor(self):
@@ -845,6 +896,7 @@ class main(QDialog):
 		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
 
 
+
 	def funtion_cancelar_vz(self):
 		msg = QMessageBox()
 		msg.setText("¿Estás seguro de que desea cancelar?")
@@ -902,9 +954,6 @@ class main(QDialog):
 		self.animacionMostar.setEndValue(QRect(340, 250, 0, 0))
 		self.animacionMostar.start(QAbstractAnimation.DeleteWhenStopped)
 
-
-	def calculator(self):
-		pass
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
