@@ -84,7 +84,7 @@ class main(QDialog):
 		self.button_actualizar_dolar.setGeometry(QRect(50,10,24,24))
 		self.button_actualizar_dolar.setStyleSheet(style_actualizar)
 		self.button_actualizar_dolar.setToolTip("Actualizar tasa de intercambio del dolar")
-		self.button_actualizar_dolar.setIcon(QIcon("img/Recargar_dolar.png"))
+		self.button_actualizar_dolar.setIcon(QIcon(":/Dolar_recarga/img/Recargar_dolar.png"))
 		self.button_actualizar_dolar.setIconSize(QSize(20,20))
 
 
@@ -235,7 +235,7 @@ class main(QDialog):
 		self.button_back_calculator = QPushButton(self.frame_calculator)
 		self.button_back_calculator.setGeometry(QRect(25,250,25,25))
 		self.button_back_calculator.setStyleSheet(style_button_guardar)
-		self.button_back_calculator.setIcon(QIcon("img/flecha_abajo.svg"))
+		self.button_back_calculator.setIcon(QIcon(":/Cancelar/img/Cancelar_rojo.png"))
 		self.button_back_calculator.setText("")
 		self.shadow3 = QGraphicsDropShadowEffect()
 		# self.shadow3.setColor(QColor(255, 13, 25, 160))
