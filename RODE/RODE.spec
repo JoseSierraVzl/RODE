@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['RODE.PY'],
+a = Analysis(['RODE.py'],
              pathex=['F:\\Programacion\\Control de deudas\\py'],
              binaries=[],
-             datas=[],
+             datas=[('./img/*.png', 'resources')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -25,6 +25,7 @@ exe = EXE(pyz,
           [],
           name='RODE',
           debug=False,
+
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
